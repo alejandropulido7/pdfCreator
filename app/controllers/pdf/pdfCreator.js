@@ -1,26 +1,35 @@
+const express = require('express')
 const fs = require("fs");
 const path = require('path');
-
+const pdf = require("pdf-creator-node");
+const {removePdf} = require('../../storage/removePdf');
 
 // Read HTML Template
 const html = fs.readFileSync(path.join(__dirname, "./templates/contract.html"), "utf8");
 
+const companyData = {
+    provider: "Coding proactive",
+    providerLocation: "Colombia",
+    servicePrice: "2000USD",
+    costSigning: "1000USD",
+    costCompletion: "4000USD"
+};
 
-let document = (services, basicInfo) => {
+let document = (customerInfo) => {
     const now = new Date().getTime();
-    return document = {
+    return {
         html: html,
         data: {
             logo: 'logo',
-            basicInfo: basicInfo,
-            services: services,
+            customerInfo: customerInfo,
+            companyData: companyData,
         },
-        path: `${__dirname}/outputs/${basicInfo.customer}-${now}.pdf`,
+        path: `${__dirname}/outputs/${customerInfo.customerName}-${now}.pdf`,
         type: "Streams",
     };
 }
 
-var options = {
+const options = {
     format: "A3",
     orientation: "portrait",
     border: "10mm",
@@ -39,5 +48,19 @@ var options = {
     }
 };
 
-module.exports.document = document;
-module.exports.options = options;
+const pdfCreator = (req, res) => {
+    const customerInfo = req.body;
+    console.log(customerInfo);
+    pdf.create(document(customerInfo), options)
+        .then((pdfRes) => {
+            console.log(pdfRes);
+            const pathPdf = pdfRes.filename
+            res.download(pathPdf, (err) => {
+                return express.json({ "error": err })
+            });
+            return pathPdf;
+        })
+        .then(removePdf);
+}
+
+module.exports.pdfCreator = pdfCreator;

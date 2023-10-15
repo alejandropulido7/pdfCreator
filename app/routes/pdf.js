@@ -1,58 +1,9 @@
 const express = require('express')
 const router = express.Router();
-const pdfConfig = require('../controllers/pdf/pdfCreator');
-const pdf = require("pdf-creator-node");
-const fs = require("fs").promises;
+const { pdfCreator } = require('../controllers/pdf/pdfCreator');
+const {validatorPdf} = require('../validations/validatorPdf');
 
-let services = [
-    {
-        name: "Design UX/UI",
-        cost: "500USD",
-    },
-    {
-        name: "Monolitic App 10% Complex",
-        cost: "1000USD",
-    },
-    {
-        name: "Backend & Frontend App",
-        cost: "1500USD",
-    },
-];
-
-const basicInfoData = [
-    'dateAgreement',
-    'customer',
-    'customerLocation',
-    'provider',
-    'providerLocation',
-    'servicePrice',
-    'costSigning',
-    'costCompletion'
-];
-
-router.post('/', (req, res) => {
-    const basicInfo = req.body;
-    console.log(basicInfo);
-    pdf.create(pdfConfig.document(services, basicInfo), pdfConfig.options)
-        .then((pdfRes) => {
-            console.log(pdfRes);
-            const pathPdf = pdfRes.filename
-            res.download(pathPdf, (err) => {
-                return express.json({ "error": err })
-            });
-            return pathPdf;
-        })
-        .then((pdf) => {
-            setTimeout(() => {
-                fs.unlink(pdf)
-                .then(() => {
-                    console.log(`File ${pdf} removed`)
-                }).catch(err => {
-                    console.error('Something wrong happened removing the file', err)
-                })
-            }, 5000);            
-        });
-})
+router.post('/', validatorPdf, pdfCreator);
 
 //Obtener parametros de GET en la request
 // router.get('/:id', (req,res) => {

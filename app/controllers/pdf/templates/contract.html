@@ -40,11 +40,13 @@
     </tr>
   </table>
   <h1>Service Agreement</h1>
-  <p>This Service Agreement (the “Agreement”) is entered into <strong>__{{basicInfo.dateAgreement}}__</strong>(the
+  <p>This Service Agreement (the “Agreement”) is entered into <strong>__{{customerInfo.dateAgreement}}__</strong>(the
     “Effective Date”) by and between
-    <strong>__{{basicInfo.customer}}__</strong> (the “Customer”) located at
-    <strong>__{{basicInfo.customerLocation}}__</strong> and <strong>__{{basicInfo.provider}}__</strong> (the “Service
-    Provider”) located at <strong>__{{basicInfo.providerLocation}}__</strong>, also individually referred to as the
+    <strong>__{{customerInfo.customerName}}__,</strong> email: <strong>{{customerInfo.customerEmail}}</strong>, contact
+    number: <strong>{{customerInfo.customerPhone}}</strong> (the “Customer”) located at
+    <strong>__{{customerInfo.customerLocation}}__</strong> and <strong>__{{companyData.provider}}__</strong> (the
+    “Service
+    Provider”) located at <strong>__{{companyData.providerLocation}}__</strong>, also individually referred to as the
     “Party”, and
     collectively
     the “Parties”.
@@ -52,30 +54,34 @@
   <div>
     <ol>
       <li>
-        <strong>Services.</strong> The Service Provider shall perform the services listed in this Section 1 (the
-        “Services”)
+        <strong>Requirements.</strong> The requirements requested by the client are subject to modifications.
         <ul>
-          {{#each services}}
+          {{#each customerInfo.requirements}}
           <li>Name: {{this.name}}</li>
-          <li>Age: {{this.cost}}</li>
+          <li>Description: {{this.description}}</li>
+          <li>Priority: {{this.priority}}</li>
           <br />
           {{/each}}
         </ul>
       </li>
       <li>
-        <strong>Compensation.</strong> The Customer agrees to pay the Service Provider $___{{basicInfo.servicePrice}}___ as
+        <strong>Compensation.</strong> The Customer agrees to pay the Service Provider
+        $___{{customerInfo.servicePrice}}___ as
         payment for
         the Services provided. This fee will be paid in accordance will the following schedule
         <ul>
-          <li><strong>Total Cost of the Services:</strong> ____{{basicInfo.servicePrice}}_________</li>
-          <li><strong>Amount Due at Signing:</strong> _____{{basicInfo.costSigning}}________</li>
-          <li><strong>Amount Due at Completion:</strong> _____{{basicInfo.costCompletion}}________</li>
+          <li><strong>Total Cost of the Services:</strong> ____{{companyData.servicePrice}}_________</li>
+          <li><strong>Amount Due at Signing:</strong> _____{{companyData.costSigning}}________</li>
+          <li><strong>Amount Due at Completion:</strong> _____{{companyData.costCompletion}}________</li>
         </ul>
       </li>
       <li>
-        <strong>Expenses.</strong> The Customer agrees to reimburse the Service Provider for all expenses incurred as a result of
-        performing the Services. The Service Provider agrees to submit all expenses to the Customer for approval prior to
-        incurring the expense. All expenses must be approved in writing. The Customer will not be liable to reimburse the
+        <strong>Expenses.</strong> The Customer agrees to reimburse the Service Provider for all expenses incurred as a
+        result of
+        performing the Services. The Service Provider agrees to submit all expenses to the Customer for approval prior
+        to
+        incurring the expense. All expenses must be approved in writing. The Customer will not be liable to reimburse
+        the
         Service Provider for any expense(s) that was not pre-approved.
       </li>
     </ol>
@@ -94,7 +100,7 @@
       <p>Date: __________</p>
     </div>
   </div>
-  
+
 
 </body>
 
