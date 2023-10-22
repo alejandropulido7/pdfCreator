@@ -1,5 +1,5 @@
-const express = require('express')
 const {check, validationResult} = require('express-validator');
+const express = require('express')
 
 const validatorPdf = [
     check('dateAgreement').exists().notEmpty(),
@@ -12,7 +12,6 @@ const validatorPdf = [
     check('requirements[0].description').exists().notEmpty(),
     check('requirements[0].priority').exists().notEmpty(),
     (req, res, next) => {
-    console.log('eu');
         try {
             validationResult(req).throw();
             return next();

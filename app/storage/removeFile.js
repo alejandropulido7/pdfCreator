@@ -1,6 +1,6 @@
 const fs = require("fs").promises;
 
-const removePdf = (pdfPath) => {
+const removeFile = (pdfPath) => {
     setTimeout(() => {
         fs.unlink(pdfPath)
         .then(() => {
@@ -11,4 +11,4 @@ const removePdf = (pdfPath) => {
     }, 5000);  
 }
 
-module.exports = { removePdf }
+module.exports = { removeFile }

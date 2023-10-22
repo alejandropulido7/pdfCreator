@@ -2,10 +2,12 @@ const express = require('express')
 const fs = require("fs");
 const path = require('path');
 const pdf = require("pdf-creator-node");
-const {removePdf} = require('../../storage/removePdf');
+const {removeFile} = require('../../storage/removeFile');
 
 // Read HTML Template
 const html = fs.readFileSync(path.join(__dirname, "./templates/contract.html"), "utf8");
+
+
 
 const companyData = {
     provider: "Coding proactive",
@@ -24,7 +26,7 @@ let document = (customerInfo) => {
             customerInfo: customerInfo,
             companyData: companyData,
         },
-        path: `${__dirname}/outputs/${customerInfo.customerName}-${now}.pdf`,
+        path: `${__dirname}/outputs/${customerInfo.customerEmail}-${now}.pdf`,
         type: "Streams",
     };
 }
@@ -55,12 +57,11 @@ const pdfCreator = (req, res) => {
         .then((pdfRes) => {
             console.log(pdfRes);
             const pathPdf = pdfRes.filename
-            res.download(pathPdf, (err) => {
+            res.sendFile(pathPdf, (err) => {
                 return express.json({ "error": err })
             });
             return pathPdf;
-        })
-        .then(removePdf);
+        }).then(removeFile);
 }
 
 module.exports.pdfCreator = pdfCreator;
