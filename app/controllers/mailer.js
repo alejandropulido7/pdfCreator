@@ -1,23 +1,21 @@
 const nodemailer = require("nodemailer");
-const express = require('express');
-
 
 const transporter = nodemailer.createTransport({
-  host: "smtp-relay.brevo.com",
+  host: "smtp.gmail.com",
   port: 587,
   auth: {
     user: 'codingproactive@gmail.com',
-    pass: 'xsmtpsib-46da27cee83178d01da92ab4716b1184248cd334f9bff6d3415d77da5aecff10-my9QdFpWCxZ2vT6I'
+    pass: 'ymao dqaf cldh mvxj'
   }
 });
 
-// transporter.verify(function (error, success) {
-//     if (error) {
-//       console.log(error);
-//     } else {
-//       console.log("Server is ready to take our messages");
-//     }
-//   });
+transporter.verify(function (error, success) {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Server is ready to take our messages");
+    }
+  });
 
 const sendMail = (req, res, next) => {
     console.log(req.file);

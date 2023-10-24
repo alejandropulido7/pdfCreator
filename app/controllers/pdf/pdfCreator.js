@@ -3,9 +3,11 @@ const fs = require("fs");
 const path = require('path');
 const pdf = require("pdf-creator-node");
 const {removeFile} = require('../../storage/removeFile');
+const {pathProyect} = require('../../utils/pathProyect')
 
 // Read HTML Template
 const html = fs.readFileSync(path.join(__dirname, "./templates/contract.html"), "utf8");
+const logoTemplate = path.join(__dirname, "./templates/logo.jpg");
 
 
 
@@ -22,9 +24,9 @@ let document = (customerInfo) => {
     return {
         html: html,
         data: {
-            logo: 'logo',
+            logo: logoTemplate,
             customerInfo: customerInfo,
-            companyData: companyData,
+            companyData: companyData
         },
         path: `${__dirname}/outputs/${customerInfo.customerEmail}-${now}.pdf`,
         type: "Streams",
@@ -52,7 +54,7 @@ const options = {
 
 const pdfCreator = (req, res) => {
     const customerInfo = req.body;
-    console.log(customerInfo);
+    console.log(customerInfo)
     pdf.create(document(customerInfo), options)
         .then((pdfRes) => {
             console.log(pdfRes);

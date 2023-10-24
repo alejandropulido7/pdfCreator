@@ -1,7 +1,4 @@
-const {validationResult, body, buildCheckFunction} = require('express-validator');
-const express = require('express');
-
-const checkBodyAndQuery = buildCheckFunction(['file']);
+const {validationResult, body} = require('express-validator');
 
 const validatorEmail = [
     body('sendTo').exists().notEmpty(),

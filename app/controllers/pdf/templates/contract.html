@@ -28,13 +28,20 @@
   h1 {
     text-align: center;
   }
+
+  .signature{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+  }
 </style>
 
 <body>
 
   <table class="table">
     <tr>
-      <td><img src="/api/img/{{logo}}" width="150" height="90"></td>
+      <td><img src="http://localhost:5000/api/img?path={{logo}}" width="150" height="90"></td>
       <td>COMPANY NAME</td>
       <td>Date: </td>
     </tr>
@@ -87,18 +94,28 @@
     </ol>
   </div>
   <div>
-    <div>
-      <p><strong>Customer</strong></p>
-      <p>Signed: __________</p>
-      <p>Name: __________</p>
-      <p>Date: __________</p>
-    </div>
-    <div>
-      <p><strong>Service Provider</strong></p>
-      <p>Signed: __________</p>
-      <p>Name: __________</p>
-      <p>Date: __________</p>
-    </div>
+    <table class="signature">
+      <tr>
+        <td>
+          <div>
+            <p><strong>Customer</strong></p>
+            <p>Signed:</p>
+            <img src="{{customerInfo.sign}}" width="200" height="150" alt="">
+            <p>Name: __________</p>
+            <p>Date: __________</p>
+          </div>
+        </td>
+        <td>
+          <div>
+            <p><strong>Service Provider</strong></p>
+            <p>Signed: __________</p>
+            <img src="logo.jpg" width="200" height="150" alt="">
+            <p>Name: __________</p>
+            <p>Date: __________</p>
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
 
 
