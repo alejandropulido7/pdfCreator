@@ -1,16 +1,7 @@
 const {body, validationResult} = require('express-validator');
-const express = require('express')
 
 const validatorPdf = [
-    body('dateAgreement').exists().notEmpty(),
-    body('customerName').exists().notEmpty(),
-    body('customerEmail').exists().notEmpty(),
-    body('customerPhone').exists().notEmpty(),
-    body('customerLocation').exists().notEmpty(),
-    // body('requirements').exists().isArray(min = 1),
-    // body('requirements[0].name').exists().notEmpty(),
-    // body('requirements[0].description').exists().notEmpty(),
-    // body('requirements[0].priority').exists().notEmpty(),
+    body('id').exists().notEmpty().isLength({ min: 12 }).withMessage("Minimum 12 digits"),
     (req, res, next) => {
         try {
             validationResult(req).throw();

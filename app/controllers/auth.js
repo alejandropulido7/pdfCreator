@@ -44,11 +44,12 @@ const login = async (req, res) => {
         const token = await createAccessToken({
             id: userFound._id
         });            
-        res.cookie('token', token);
         res.send({
             id: userFound.id,
             username: userFound.username,
-            email: userFound.email
+            email: userFound.email,
+            role: userFound.role,
+            token
         });    
     } catch (error) {
         console.log(error);
