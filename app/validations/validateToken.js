@@ -3,7 +3,7 @@ const {User}= require('../models/User')
 const secretKey = process.env.SECRETKEY;
 
 const authRequired = (req, res, next) => {
-    const {token} = req.cookies;
+    const {token} = req.headers;
     if(!token) return res.status(401).json({ message: "No token"});
     jwt.verify(token, secretKey, (err, user) => {
         if(err) return res.status(403).json({ message: "Invalid token"});

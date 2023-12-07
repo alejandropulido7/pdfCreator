@@ -26,25 +26,35 @@ let document = (customerInfo) => {
     const {dateAgreement, customerName, customerEmail, customerPhone, customerLocation, requirements, sign} = customerInfo;
     const dateAt = dateFormat.format(dateAgreement, "DD/MM/YYYY");
 
-    const info = {dateAgreement: dateAt, 
+    const info = {
+        dateAgreement: dateAt, 
         customerName,
         customerEmail,
         customerPhone,
         customerLocation,
-        requirements,
-        sign};
-    console.log(info);
-
+        sign
+    };
+        
+    const requirementsMod = [];
+    requirements.map(requirement => {
+        requirementsMod.push({
+            name: requirement.name,
+            description: requirement.description,
+            priority: requirement.priority
+        });
+    });
+    
     return {
         html: html,
         data: {
             expeditionDate,
             logo: logoTemplate,
             customerInfo: info,
+            requirements: requirementsMod,
             companyData: companyData
         },
         path: `${__dirname}/outputs/${customerInfo.customerEmail}-${now.getTime()}.pdf`,
-        type: "Streams",
+        type: "Buffer",
     };
 }
 
@@ -77,11 +87,10 @@ const createPdf = (info) => {
 
 const generatePdf = async (req, res) => {
     const id = req.body.id;
-    console.log(id);
+    console.log("//////////////generatePdf");
     try {
-        const contract = await Agreement.findById({_id: id});
+        let contract = await Agreement.findById({_id: id}).select('-requirements._id');
         if(contract == null) return res.status(400).json(['The Agreement has not been found']);
-
         createPdf(contract).then((pathPdf) => {
             res.sendFile(pathPdf, (err) => {
                 return express.json({ "error": err })

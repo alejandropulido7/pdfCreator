@@ -34,7 +34,8 @@ const agreementSchema = new mongoose.Schema({
         trim: true,
         lowercase: true,
         required: 'Email address is required',
-        validate: [validateEmail, 'Please fill a valid email address']
+        unique: false
+        // validate: [validateEmail, 'Please fill a valid email address']
     },
     customerPhone: {
         type: String,

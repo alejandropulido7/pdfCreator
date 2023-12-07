@@ -3,7 +3,7 @@ const {body, validationResult} = require('express-validator');
 const validatorAgreement = [
     body('dateAgreement').exists().notEmpty(),
     body('customerName').exists().notEmpty(),
-    body('customerEmail').exists().notEmpty(),
+    body('customerEmail').exists().isEmail().withMessage('Not a valid e-mail address'),
     body('customerPhone').exists().notEmpty(),
     body('customerLocation').exists().notEmpty(),
     body('requirements').exists().isArray(min = 1),
