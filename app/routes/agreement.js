@@ -6,6 +6,6 @@ const {authRequired} = require('../validations/validateToken')
 
 
 router.get('/', authRequired, findAll);
-router.post('/', validatorAgreement,createAgreement);
+router.post('/', [authRequired, validatorAgreement],createAgreement);
 
 module.exports = router;

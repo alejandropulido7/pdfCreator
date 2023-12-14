@@ -5,6 +5,6 @@ const {validatorEmail} = require('../validations/validatorEmail');
 const {authRequired} = require('../validations/validateToken');
 
 
-router.post('/', [validatorEmail], sendMail);
+router.post('/', [authRequired, validatorEmail], sendMail);
 
 module.exports = router;

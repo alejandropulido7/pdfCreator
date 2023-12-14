@@ -5,6 +5,6 @@ const {validatorPdf} = require('../validations/validatorPdf');
 const {authRequired} = require('../validations/validateToken');
 
 
-router.post('/', validatorPdf, generatePdf);
+router.post('/', [authRequired, validatorPdf], generatePdf);
 
 module.exports = router;

@@ -2,11 +2,9 @@ const {Agreement} = require('../models/Agreement')
 const {User} = require('../models/User')
 
 const findAll = async (req, res) => {
-    console.log(req.user);
     try {
         const userFound = await User.findById({_id: req.user.id});
         if(!userFound) return res.status(401).json({ message: "invalid token"});
-        console.log(userFound);
         let agreementsFound =  [];
         if(userFound.role == 'user'){
             agreementsFound = await Agreement.find({customerEmail: userFound.email});
@@ -15,13 +13,11 @@ const findAll = async (req, res) => {
         }
         res.send(agreementsFound);
     } catch (error) {
-        console.log(error);
         res.status(500).json([error.message]);
     }    
 };
 
 const createAgreement = async (req, res) => {
-    console.log(req.body);
     const {dateAgreement, customerName, customerEmail, customerPhone, customerLocation, requirements, sign} = req.body;
     try {
         
@@ -40,7 +36,6 @@ const createAgreement = async (req, res) => {
             message: "Agreement registered to "+saveAgreement.customerEmail
         });
     } catch (error) {
-        console.log(error);
         res.status(500).json([error.message]);
     }
 

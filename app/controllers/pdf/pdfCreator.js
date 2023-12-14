@@ -80,14 +80,12 @@ const options = {
 const createPdf = (info) => {
     return pdf.create(document(info), options)
         .then((pdfRes) => {
-            console.log(pdfRes);
             return pdfRes.filename;
         });
 };
 
 const generatePdf = async (req, res) => {
     const id = req.body.id;
-    console.log("//////////////generatePdf");
     try {
         let contract = await Agreement.findById({_id: id}).select('-requirements._id');
         if(contract == null) return res.status(400).json(['The Agreement has not been found']);
@@ -98,7 +96,6 @@ const generatePdf = async (req, res) => {
             return pathPdf;
         }).then(removeFile);        
     } catch (error) {
-        console.log(error);
         res.status(500).json([error.message]);
     }
     

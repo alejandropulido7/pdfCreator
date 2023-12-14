@@ -26,7 +26,6 @@ const register = async (req, res) => {
             email: newUser.email
         });    
     } catch (error) {
-        console.log(error);
         res.status(500).json([error.message]);
     }
 }
@@ -52,7 +51,6 @@ const login = async (req, res) => {
             token
         });    
     } catch (error) {
-        console.log(error);
         res.status(500).json({ error });
     }
 }

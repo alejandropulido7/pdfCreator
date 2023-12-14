@@ -43,7 +43,6 @@ const sendMail = async (req, res) => {
               path: pdfPath
           }]
         }).then((info) => {
-            console.log("Message sent: ", info);
             res.status(200).json({message: 'Email has been sent to '+info.envelope.to})
         }).catch((error) => {
             return res.status(400).json(['An error occurred while sending email: '+error]);
