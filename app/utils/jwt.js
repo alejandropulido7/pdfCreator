@@ -18,4 +18,14 @@ const createAccessToken = (payload) => {
     })    
 }
 
-module.exports = {createAccessToken}
+const validToken = (token) => {
+    return new Promise((resolve, reject) => {
+        jwt.verify(token, secretKey, (err, user) => {
+            if(err) reject({id:''});
+            resolve(user);
+        });
+    })
+    
+}
+
+module.exports = {createAccessToken, validToken}

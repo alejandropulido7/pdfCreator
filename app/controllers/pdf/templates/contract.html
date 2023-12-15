@@ -9,6 +9,7 @@
   body {
     margin: auto;
     width: 90%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
 
   .table,
@@ -27,6 +28,12 @@
 
   h1 {
     text-align: center;
+    margin-bottom: 50px;
+    color: #716bdb;
+  }
+
+  strong{
+    color: #716bdb;
   }
 
   .signature{
@@ -34,6 +41,10 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     width: 100%;
+  }
+
+  .item-list > li{
+    margin-bottom: 30px;
   }
 </style>
 
@@ -59,7 +70,7 @@
     the “Parties”.
   </p>
   <div>
-    <ol>
+    <ol class="item-list">
       <li>
         <strong>Requirements.</strong> The requirements requested by the client are subject to modifications.
         {{#each requirements}}

@@ -15,7 +15,7 @@ connectDB();
 const app = express();
 app.use(express.json());
 app.use(cors({
-    origin: '*'
+    origin: crossFront
 }));
 app.use( bodyParser.urlencoded({ extended: true }) );
 app.use( bodyParser.json() );

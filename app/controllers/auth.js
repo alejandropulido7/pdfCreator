@@ -1,6 +1,6 @@
 const {User}= require('../models/User')
 const bcrypt = require('bcryptjs')
-const {createAccessToken} = require('../utils/jwt');
+const {createAccessToken, validToken} = require('../utils/jwt');
 
 const register = async (req, res) => {
     const {email, password, username} = req.body;
@@ -60,4 +60,16 @@ const logout = async (req, res) => {
     res.sendStatus(200);
 }
 
-module.exports = {register, login, logout}
+const validateToken = async (req, res) => {
+    const payload =  await validToken(req.params.token);
+    if(payload.id == '') return res.status(400).json({message: "Token not valid"});
+    const userFound = await User.findById({_id: payload.id});
+    if(!userFound) return res.status(400).json({message: "User not found"});
+    res.send({
+        username: userFound.username,
+        email: userFound.email,
+        role: userFound.role
+    });
+}
+
+module.exports = {register, login, logout, validateToken}

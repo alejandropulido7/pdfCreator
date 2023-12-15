@@ -8,7 +8,7 @@ const dateFormat = require('date-and-time');
 
 // Read HTML Template
 const html = fs.readFileSync(path.join(__dirname, "./templates/contract.html"), "utf8");
-const logoTemplate = path.join(__dirname, "./templates/logo.jpg");
+const logoTemplate = path.join(__dirname, "./templates/logo.png");
 
 
 
